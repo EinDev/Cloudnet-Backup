@@ -1,0 +1,32 @@
+[versions]
+cloudnet = "4.0.0-RC11.2"
+lombok = "1.18.36"
+hikariCp = "6.2.1"
+mysqlConnector = "9.1.0"
+zip4j = "2.11.3"
+cloud = "2.0.0-cn1"
+cloudConfirmation = "1.0.0-rc.1"
+apacheCompress = "1.27.1"
+
+[libraries]
+
+lombok = { group = "org.projectlombok", name = "lombok", version.ref = "lombok" }
+cloudnetPlatformInjectApi = { group = "eu.cloudnetservice.cloudnet", name = "platform-inject-api", version.ref = "cloudnet" }
+cloudnetPlatformInjectProcessor = { group = "eu.cloudnetservice.cloudnet", name = "platform-inject-processor", version.ref = "cloudnet" }
+cloudnetNode = { group = "eu.cloudnetservice.cloudnet", name = "node", version.ref = "cloudnet" }
+
+cloudCore = { group = "com.github.CloudNetService.cloud-command-framework", name = "cloud-core", version.ref = "cloud" }
+cloudAnnotations = { group = "com.github.CloudNetService.cloud-command-framework", name = "cloud-annotations", version.ref = "cloud" }
+cloudConfirmationProcessor = { group = "org.incendo", name = "cloud-processors-confirmation", version.ref = "cloudConfirmation" }
+apacheCompress = { group = "org.apache.commons", name = "commons-compress", version.ref = "apacheCompress" }
+
+hikariCp = { group = "com.zaxxer", name = "HikariCP", version.ref = "hikariCp" }
+mysqlConnector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysqlConnector" }
+
+zip4j = { group = "net.lingala.zip4j", name = "zip4j", version.ref = "zip4j"}
+
+[bundles]
+cloudnet = ["cloudnetPlatformInjectApi", "cloudnetNode"]
+cloudnetAnnotationProcessor = ["cloudnetPlatformInjectProcessor"]
+mysql = ["mysqlConnector", "hikariCp"]
+cloud = ["cloudCore", "cloudAnnotations", "cloudConfirmationProcessor"]
