@@ -58,7 +58,7 @@ This way, we only need to back up files once and (if the file did not change) we
   - S3
   - FTP
 - Add task scheduling (Backups, GC & Sanity-Checks)
-- Add a local agent to allow for `save-all` before backup
+- Add a local agent to allow for `save-all` before backup (inside the service)
 - Add the ability to restore a single service ("preview" backup)
 - Optimize deduplication
   - Don't compress folders, compress individual files instead
