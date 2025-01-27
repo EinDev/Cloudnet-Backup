@@ -5,6 +5,7 @@ import lombok.experimental.UtilityClass;
 import java.io.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HexFormat;
 
 @UtilityClass
 public class ChecksumUtil {
@@ -25,5 +26,13 @@ public class ChecksumUtil {
             throw new RuntimeException(e);
         }
         return digest.digest();
+    }
+
+    public String getSha265ChecksumString(File file) {
+        return getAsHexString(getSha265Checksum(file));
+    }
+
+    public String getAsHexString(byte[] checksum) {
+        return HexFormat.of().formatHex(checksum);
     }
 }

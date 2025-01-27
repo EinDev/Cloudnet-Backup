@@ -1,4 +1,4 @@
-package dev.ein.cloudnet.module.backup.archieve;
+package dev.ein.cloudnet.module.backup.archive;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -12,7 +12,7 @@ import org.apache.commons.compress.archivers.sevenz.SevenZFile;
 import org.apache.commons.compress.archivers.sevenz.SevenZMethod;
 import org.apache.commons.compress.archivers.sevenz.SevenZOutputFile;
 
-public class SevenZArchiever extends AbstractArchiever {
+public class SevenZArchiever extends Archiver {
 
 	@Override
 	public File compress(File tmpFolder, File... content) throws IOException {

@@ -1,9 +1,9 @@
 package dev.ein.cloudnet.module.backup.backup;
 
-import static dev.ein.cloudnet.module.backup.archieve.StaticArchiever.compress;
-import static dev.ein.cloudnet.module.backup.archieve.StaticArchiever.compress_exclude;
-import static dev.ein.cloudnet.module.backup.archieve.StaticArchiever.compress_include;
-import static dev.ein.cloudnet.module.backup.archieve.StaticArchiever.decompresseTo;
+import static dev.ein.cloudnet.module.backup.archive.StaticArchiever.compress;
+import static dev.ein.cloudnet.module.backup.archive.StaticArchiever.compress_exclude;
+import static dev.ein.cloudnet.module.backup.archive.StaticArchiever.compress_include;
+import static dev.ein.cloudnet.module.backup.archive.StaticArchiever.decompresseTo;
 
 import java.io.File;
 import java.io.IOException;
@@ -413,8 +413,12 @@ public class BackupSystem {
 					if (!new File(wld, "region").exists())
 						continue;
 
+					//TODO: execute https://hub.spigotmc.org/javadocs/spigot/org/bukkit/World.html#save()
+					// on the service (this will need some communication to work)
+					// Based on my research, this is a blocking call and therefore should happen in the main thread
+
 					worlds.put(new URI("worlds", f.getName(), "/" + wld.getName(), null).toString(),
-							compress_exclude(tmp, wld.listFiles(), "playerdata", "region"));
+							compress_exclude(tmp, wld.listFiles(), "playerdata", "region", "session.lock"));
 
 					File playerdatadir = new File(wld, "playerdata");
 					if (playerdatadir.exists() && playerdatadir.isDirectory()) {
@@ -511,5 +515,9 @@ public class BackupSystem {
 			}
 		}
 		Files.delete(tmp.toPath());
+	}
+
+	public void deleteBackup(@NonNull CommandSource source, @NonNull AdvancedBackupInfo info) {
+		info.services().forEach(service -> service.deleteBackup(info));
 	}
 }

@@ -1,6 +1,7 @@
 package dev.ein.cloudnet.module.backup.sql;
 
 import dev.derklaro.aerogel.Inject;
+import dev.ein.cloudnet.module.backup.backup.AdvancedBackupInfo;
 import dev.ein.cloudnet.module.backup.backup.Backup;
 import dev.ein.cloudnet.module.backup.backup.BackupInfo;
 import dev.ein.cloudnet.module.backup.backup.IBackupService;
@@ -171,15 +172,18 @@ public class SQLBackupService implements IBackupService {
 	public Stream<byte[]> getBlobsToKeep() {
 		var entries = backupsDb.entries();
 		Context ctx = new Context(null, "", null, true);
-		return entries.values().stream().flatMap(doc -> {
-			return Stream.of(
-					ctx.fetchHashesCompressed(doc.readDocument("templates")),
-					ctx.fetchHashesUncompressed(doc.readDocument("regions")),
-					ctx.fetchHashesCompressed(doc.readDocument("worlds")),
-					ctx.fetchHashesUncompressed(doc.readDocument("playerdata")),
-					ctx.fetchHashesCompressed(doc.readDocument("extra_files"))
-			).flatMap(s -> s);
-		});
+		return entries.values().stream().flatMap(doc -> Stream.of(
+                ctx.fetchHashesCompressed(doc.readDocument("templates")),
+                ctx.fetchHashesUncompressed(doc.readDocument("regions")),
+                ctx.fetchHashesCompressed(doc.readDocument("worlds")),
+                ctx.fetchHashesUncompressed(doc.readDocument("playerdata")),
+                ctx.fetchHashesCompressed(doc.readDocument("extra_files"))
+        ).flatMap(s -> s));
+	}
+
+	@Override
+	public void deleteBackup(@NonNull AdvancedBackupInfo info) {
+		backupsDb.delete(info.id());
 	}
 
 	record Context(CommandSource commandSource, String prefix, BlobStorage blobStorage, boolean metaOnly) {

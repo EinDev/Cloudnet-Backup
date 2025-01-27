@@ -1,20 +1,32 @@
-package dev.ein.cloudnet.module.backup.archieve;
+package dev.ein.cloudnet.module.backup.archive;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
 
+import dev.ein.cloudnet.module.backup.config.ArchiverConfig;
 import lombok.Getter;
 import lombok.Setter;
 
-public abstract class AbstractArchiever {
+public abstract class Archiver {
 
 	@Setter
 	protected static String password;
 
 	@Getter
 	@Setter
-	private static AbstractArchiever instance;
+	private static Archiver instance;
+	
+	public static void init(ArchiverConfig config, String defaultPassword) {
+        if (config instanceof ArchiverConfig archiverConfig) {
+            instance = new Zip4jArchiever(archiverConfig);
+			if(archiverConfig.password() == null) {
+				password = defaultPassword;
+			}
+        } else {
+            throw new IllegalStateException("Unexpected archiver: " + config.getClass());
+        }
+	}
 
 	public abstract File compress(File tmpFolder, File... content) throws IOException;
 
