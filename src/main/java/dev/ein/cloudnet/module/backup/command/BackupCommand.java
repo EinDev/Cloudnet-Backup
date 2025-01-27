@@ -214,4 +214,16 @@ public class BackupCommand {
 		}
 	}
 
+	@Command("backup|backups delete|del <id>")
+	public void deleteBackup(
+			@NonNull CommandSource source,
+			@NonNull @Argument(value = "id", parserName = "backupParser") AdvancedBackupInfo info
+	) {
+		if(source.checkPermission("backups.delete")) {
+            backupSystem.deleteBackup(source, info);
+        } else {
+			source.sendMessage(I18n.trans("missing-command-permission"));
+		}
+	}
+
 }

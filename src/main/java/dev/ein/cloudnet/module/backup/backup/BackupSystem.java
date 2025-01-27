@@ -516,4 +516,8 @@ public class BackupSystem {
 		}
 		Files.delete(tmp.toPath());
 	}
+
+	public void deleteBackup(@NonNull CommandSource source, @NonNull AdvancedBackupInfo info) {
+		info.services().forEach(service -> service.deleteBackup(info));
+	}
 }

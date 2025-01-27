@@ -181,6 +181,11 @@ public class SQLBackupService implements IBackupService {
         ).flatMap(s -> s));
 	}
 
+	@Override
+	public void deleteBackup(@NonNull AdvancedBackupInfo info) {
+		backupsDb.delete(info.id());
+	}
+
 	record Context(CommandSource commandSource, String prefix, BlobStorage blobStorage, boolean metaOnly) {
 		public void sendMessage(String message) {
 			commandSource.sendMessage(prefix + message);
