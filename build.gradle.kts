@@ -35,6 +35,10 @@ dependencies {
     moduleLibrary(libs.bundles.cloud) {
         exclude(group = "org.incendo", module = "cloud-core")
     }
+
+
+    testImplementation("org.junit.jupiter:junit-jupiter:5.7.1")
+    testRuntimeOnly(libs.bundles.tests)
 }
 
 moduleJson {
@@ -47,4 +51,14 @@ moduleJson {
     description = "CloudNet-Backup is a module for the CloudNet network that allows you to automatically create backups of your servers."
     version = project.version.toString()
     website = "https://tigersystems.cf"
+}
+
+tasks.named<Test>("test") {
+    useJUnitPlatform()
+
+    maxHeapSize = "1G"
+
+    testLogging {
+        events("passed")
+    }
 }

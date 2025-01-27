@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 
 import dev.ein.cloudnet.module.backup.data.BlobStorage;
 import eu.cloudnetservice.node.command.source.CommandSource;
+import lombok.NonNull;
 
 public interface IBackupService {
 
@@ -28,4 +29,5 @@ public interface IBackupService {
 
 	public Stream<byte[]> getBlobsToKeep();
 
+    void deleteBackup(@NonNull AdvancedBackupInfo info);
 }

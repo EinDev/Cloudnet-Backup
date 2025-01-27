@@ -1,8 +1,6 @@
 [versions]
 cloudnet = "4.0.0-RC11.2"
 lombok = "1.18.36"
-hikariCp = "6.2.1"
-mysqlConnector = "9.1.0"
 zip4j = "2.11.3"
 cloud = "2.0.0-cn1"
 cloudConfirmation = "1.0.0-rc.1"
@@ -20,13 +18,14 @@ cloudAnnotations = { group = "com.github.CloudNetService.cloud-command-framework
 cloudConfirmationProcessor = { group = "org.incendo", name = "cloud-processors-confirmation", version.ref = "cloudConfirmation" }
 apacheCompress = { group = "org.apache.commons", name = "commons-compress", version.ref = "apacheCompress" }
 
-hikariCp = { group = "com.zaxxer", name = "HikariCP", version.ref = "hikariCp" }
-mysqlConnector = { group = "com.mysql", name = "mysql-connector-j", version.ref = "mysqlConnector" }
-
 zip4j = { group = "net.lingala.zip4j", name = "zip4j", version.ref = "zip4j"}
+
+
+logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.16" }
+junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.0" }
 
 [bundles]
 cloudnet = ["cloudnetPlatformInjectApi", "cloudnetNode"]
 cloudnetAnnotationProcessor = ["cloudnetPlatformInjectProcessor"]
-mysql = ["mysqlConnector", "hikariCp"]
 cloud = ["cloudCore", "cloudAnnotations", "cloudConfirmationProcessor"]
+tests = ["logback", "junitPlatformLauncher", "zip4j"]

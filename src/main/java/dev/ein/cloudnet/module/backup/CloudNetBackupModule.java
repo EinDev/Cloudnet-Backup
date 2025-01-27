@@ -1,7 +1,8 @@
 package dev.ein.cloudnet.module.backup;
 
-import dev.ein.cloudnet.module.backup.archieve.AbstractArchiever;
-import dev.ein.cloudnet.module.backup.archieve.Zip4jArchiever;
+import com.google.gson.JsonParser;
+import dev.ein.cloudnet.module.backup.archive.Archiver;
+import dev.ein.cloudnet.module.backup.archive.Zip4jArchiever;
 import dev.ein.cloudnet.module.backup.backup.BackupSystem;
 import dev.ein.cloudnet.module.backup.backup.IBackupService;
 import dev.ein.cloudnet.module.backup.command.BackupCommand;
@@ -40,31 +41,24 @@ public class CloudNetBackupModule extends DriverModule {
 			@NonNull ServiceRegistry registry,
 			@NonNull SQLBackupService sqlBackupService
 	) {
-		if(cfg.enabled()) {
+		Archiver.init(cfg.archiverConfig(), configuration.clusterConfig().clusterId().toString());
 
-			if (!cfg.enabled())
-				return;
+		try {
+			sqlBackupService.initialize();
+			services.add(sqlBackupService);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-			AbstractArchiever.setPassword(configuration.clusterConfig().clusterId().toString());
-			AbstractArchiever.setInstance(new Zip4jArchiever());
 
+		BackupSystem system = new BackupSystem(new File("."), services);
+		registry.registerProvider(BackupSystem.class, "BackupSystem", system);
+
+		if (cfg.backupOnStartup()) {
 			try {
-				sqlBackupService.initialize();
-				services.add(sqlBackupService);
+				system.startBackup(null);
 			} catch (IOException e) {
 				e.printStackTrace();
-			}
-
-
-			BackupSystem system = new BackupSystem(new File("."), services);
-			registry.registerProvider(BackupSystem.class, "BackupSystem", system);
-
-			if (cfg.backupOnStartup()) {
-				try {
-					system.startBackup(null);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 			}
 		}
 	}
@@ -74,7 +68,7 @@ public class CloudNetBackupModule extends DriverModule {
 			@NonNull CommandProvider commandProvider,
 			@NonNull BackupCommand command
 	) {
-		commandProvider.register(command);
+		if(cfg.enabled()) commandProvider.register(command);
 	}
 
 	@ModuleTask(order = 32, lifecycle = ModuleLifeCycle.UNLOADED)
