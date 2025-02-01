@@ -22,7 +22,7 @@ zip4j = { group = "net.lingala.zip4j", name = "zip4j", version.ref = "zip4j"}
 
 
 logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.16" }
-junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.10.0" }
+junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.11.4" }
 
 [bundles]
 cloudnet = ["cloudnetPlatformInjectApi", "cloudnetNode"]
