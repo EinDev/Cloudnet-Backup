@@ -3,7 +3,7 @@ cloudnet = "4.0.0-RC11.2"
 lombok = "1.18.36"
 zip4j = "2.11.3"
 cloud = "2.0.0-cn1"
-cloudConfirmation = "1.0.0-rc.1"
+cloudConfirmation = "1.0.0-SNAPSHOT"
 apacheCompress = "1.27.1"
 
 [libraries]
