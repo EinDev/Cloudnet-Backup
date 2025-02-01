@@ -30,12 +30,14 @@ indexed by the hash of the content.
 This way, we only need to back up files once and (if the file did not change) we can even repair damaged backups!
 
 ## TODO (feel free to contribute)
+- Add task scheduling (Backups, GC & Sanity-Checks)
+- Make backup processes asynchronous
+  - Ensure only one backup runs at a time!
+- Add a local agent to allow for `save-all` before backup (inside the service)
+- Add the ability to restore a single service ("preview" backup)
 - (Beginner friendly) Add Node information to BackupInfo (Allows for multi-node cluster backups)
   - This should allow for multi-node clusters, but requires the same database to be used
   - (optional) Add a note to the user  
-- (Beginner friendly) Delete folders from ".files" during GC cycle, if they are empty
-- (Beginner friendly) Make the folder ".files" configurable
-- (Beginner friendly) Replace ``System.out`` calls with proper logging
 - Calculate the deduplication factor during GC
 - Add sanity checking backups
   - Check if files in each backup are present in BlobStorage
@@ -52,14 +54,12 @@ This way, we only need to back up files once and (if the file did not change) we
     - Make multiple backups
     - Show the deduplication factor
 - Add periodic progress messages
-- Make backup processes asynchronous
-  - Ensure only one backup runs at a time!
 - Add the ability to use shared storage backends
   - S3
   - FTP
-- Add task scheduling (Backups, GC & Sanity-Checks)
-- Add a local agent to allow for `save-all` before backup (inside the service)
-- Add the ability to restore a single service ("preview" backup)
 - Optimize deduplication
   - Don't compress folders, compress individual files instead
   - use more deterministic compression (just an idea, maybe this is not even an issue)
+- (Beginner friendly) Make the folder ".files" configurable
+- (Beginner friendly) Delete folders from ".files" during GC cycle, if they are empty
+- (Beginner friendly) Replace ``System.out`` calls with proper logging
