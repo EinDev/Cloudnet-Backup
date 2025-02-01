@@ -18,8 +18,9 @@ jobs:
         with:
           java-version: '23'
           distribution: 'corretto'
+          cache: gradle
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew clean test jar
       - name: Upload Nightly Build
         uses: actions/upload-artifact@v4
         if: success()
