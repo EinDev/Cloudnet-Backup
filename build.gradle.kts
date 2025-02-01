@@ -1,6 +1,6 @@
 plugins {
     java
-    id("eu.cloudnetservice.juppiter") version "0.2.0"
+    id("eu.cloudnetservice.juppiter") version "0.4.0"
 }
 
 group = "dev.ein.cloudnet.module.backup"
