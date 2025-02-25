@@ -21,7 +21,7 @@ apacheCompress = { group = "org.apache.commons", name = "commons-compress", vers
 zip4j = { group = "net.lingala.zip4j", name = "zip4j", version.ref = "zip4j"}
 
 
-logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.16" }
+logback = { group = "ch.qos.logback", name = "logback-classic", version = "1.5.17" }
 junitPlatformLauncher = { group = "org.junit.platform", name = "junit-platform-launcher", version = "1.11.4" }
 
 [bundles]
