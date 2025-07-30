@@ -4,7 +4,7 @@ lombok = "1.18.36"
 zip4j = "2.11.5"
 cloud = "2.0.0-cn1"
 cloudConfirmation = "1.0.0-rc.1"
-apacheCompress = "1.27.1"
+apacheCompress = "1.28.0"
 
 [libraries]
 
