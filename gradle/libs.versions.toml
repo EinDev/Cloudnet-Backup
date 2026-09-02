@@ -1,6 +1,6 @@
 [versions]
 cloudnet = "4.0.0-RC11.2"
-lombok = "1.18.36"
+lombok = "1.18.48"
 zip4j = "2.11.5"
 cloud = "2.0.0-cn1"
 cloudConfirmation = "1.0.0-rc.1"
